@@ -170,12 +170,12 @@ Handlebars.js
   Unescaped : 438ms
   Total     : 2068ms
 
-Jade without `with`
+Pug without `with`
   Escaped   : 1688ms
   Unescaped : 361ms
   Total     : 2049ms
 
-Jade
+Pug
   Escaped   : 3062ms
   Unescaped : 94ms
   Total     : 3156ms
