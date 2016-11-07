@@ -2987,13 +2987,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function isValidSimpleAssignmentTarget_Assign(node, strict) {
-		if (Identifier.name === node.type) {
+		if ('Identifier' === node.type) {
 			if (strict && isValdSimpleAssignmentTarget_Identifier(node.name)) {
 				return false;
 			}
 
 			return true;
-		} else if (MemberExpression.name === node.type) {
+		} else if ('MemberExpression' === node.type) {
 			return true;
 		}
 
@@ -3001,7 +3001,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function isValidSimpleAssignmentTarget_Update(node) {
-		var isObject = ArrayExpression.name === node.type || ObjectExpression.name === node.type;
+		var isObject = 'ArrayExpression' === node.type || 'ObjectExpression' === node.type;
 		return isValidSimpleAssignmentTarget_Assign(node);
 	}
 
@@ -3024,48 +3024,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isBinding(expr) {
 		var type = expr.type;
 
-		return Identifier.name === type || SpreadElement.name === type || ArrayExpression.name === type || ObjectExpression.name === type;
+		return 'Identifier' === type || 'SpreadElement' === type || 'ArrayExpression' === type || 'ObjectExpression' === type;
 	}
 
 	var CONDITIONAL_PRECEDENCE = 4;
 	var WHILE_FAILSAFE = 1000000;
 
 	function Literal(value, start, end) {
-		this.type = Literal.name;
+		this.type = 'Literal';
 		this.value = value;
 		this.start = start;
 		this.end = end;
 	}
 
 	function Identifier(name, start, end) {
-		this.type = Identifier.name;
+		this.type = 'Identifier';
 		this.name = name;
 		this.start = start;
 		this.end = end;
 	}
 
 	function SpreadElement(expr, start, end) {
-		this.type = SpreadElement.name;
+		this.type = 'SpreadElement';
 		this.argument = expr;
 		this.start = start;
 		this.end = end;
 	}
 
 	function ThisExpression(start, end) {
-		this.type = ThisExpression.name;
+		this.type = 'ThisExpression';
 		this.start = start;
 		this.end = end;
 	}
 
 	function SequenceExpression(body, start, end) {
-		this.type = SequenceExpression.name;
+		this.type = 'SequenceExpression';
 		this.expressions = body;
 		this.start = start;
 		this.end = end;
 	}
 
 	function NewExpression(callee, args, start, end) {
-		this.type = NewExpression.name;
+		this.type = 'NewExpression';
 		this.callee = callee;
 		this.arguments = args;
 		this.start = start;
@@ -3073,7 +3073,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function CallExpression(callee, args, start, end) {
-		this.type = CallExpression.name;
+		this.type = 'CallExpression';
 		this.callee = callee;
 		this.arguments = args;
 		this.start = start;
@@ -3081,7 +3081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function MemberExpression(object, property, computed, start, end) {
-		this.type = MemberExpression.name;
+		this.type = 'MemberExpression';
 		this.object = object;
 		this.property = property;
 		this.computed = computed;
@@ -3090,7 +3090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function YieldExpression(argument, delegates, start, end) {
-		this.type = YieldExpression.name;
+		this.type = 'YieldExpression';
 		this.argument = argument;
 		this.delegates = delegates;
 		this.start = start;
@@ -3098,7 +3098,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ArrayExpression(elements, start, end) {
-		this.type = ArrayExpression.name;
+		this.type = 'ArrayExpression';
 		this.elements = elements;
 		this.start = start;
 		this.end = end;
@@ -3117,14 +3117,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ObjectExpression(properties, start, end) {
-		this.type = ObjectExpression.name;
+		this.type = 'ObjectExpression';
 		this.properties = properties;
 		this.start = start;
 		this.end = end;
 	}
 
 	function UpdateExpression(operator, argument, isPrefix, start, end) {
-		this.type = UpdateExpression.name;
+		this.type = 'UpdateExpression';
 		this.operator = operator;
 		this.argument = argument;
 		this.prefix = isPrefix;
@@ -3133,7 +3133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function UnaryExpression(operator, argument, start, end) {
-		this.type = UnaryExpression.name;
+		this.type = 'UnaryExpression';
 		this.operator = operator;
 		this.argument = argument;
 		this.prefix = true;
@@ -3142,7 +3142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function LogicalExpression(operator, left, right, start, end) {
-		this.type = LogicalExpression.name;
+		this.type = 'LogicalExpression';
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
@@ -3151,7 +3151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function BinaryExpression(operator, left, right, start, end) {
-		this.type = BinaryExpression.name;
+		this.type = 'BinaryExpression';
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
@@ -3160,7 +3160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ArrowExpression(parameters, defaults, rest, body, generator, start, end) {
-		this.type = ArrowExpression.name;
+		this.type = 'ArrowExpression';
 		this.parameters = parameters;
 		this.defaults = defaults;
 		this.rest = rest;
@@ -3172,7 +3172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ConditionalExpression(test, consequent, alternate, start, end) {
-		this.type = ConditionalExpression.name;
+		this.type = 'ConditionalExpression';
 		this.test = test;
 		this.consequent = consequent;
 		this.alternate = alternate;
@@ -3181,7 +3181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function AssignmentExpression(operator, left, right, start, end) {
-		this.type = AssignmentExpression.name;
+		this.type = 'AssignmentExpression';
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
@@ -3190,12 +3190,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ExpressionStatement(expr) {
-		this.type = ExpressionStatement.name;
+		this.type = 'ExpressionStatement';
 		this.expression = expr;
 	}
 
 	function Program(body) {
-		this.type = Program.name;
+		this.type = 'Program';
 		this.body = body;
 	}
 
@@ -3435,7 +3435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			for (var i = 0; i < body.length; i++) {
 				var expr = body[i];
 
-				if (ArrayExpression.name === expr.type || ObjectExpression.name === expr.type) {
+				if ('ArrayExpression' === expr.type || 'ObjectExpression' === expr.type) {
 					this.error('Destructuring not yet supported');
 				}
 			}
@@ -3604,7 +3604,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			var end = expr.end;
 
 			if (assertIdentifier) {
-				if (Identifier.name !== expr.type) {
+				if ('Identifier' !== expr.type) {
 					this.error(UnexpectedToken, token);
 				} else if (this.context.strict && isValdSimpleAssignmentTarget_Identifier(expr.name)) {
 					this.error(UnexpectedStrictEvalOrArguments, token);
@@ -4015,7 +4015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var alternate = this.parseAssignmentExpression();
 				node = new ConditionalExpression(node, consequent, alternate, node.start, alternate.end);
 			} else if (token && '=>' === token.value) {
-				if (Identifier.name !== node.type) {
+				if ('Identifier' !== node.type) {
 					this.error(UnexpectedToken, begin);
 				}
 
