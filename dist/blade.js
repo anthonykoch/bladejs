@@ -392,33 +392,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = Renderer;
-
-	var master = {
-		path: '/layouts/master.blade',
-		contents: 'This is the master'
-	};
-
-	var home = {
-		path: '/pages/home.blade',
-		contents: 'This is the master'
-	};
-
-	var files = [master, home];
-
-	var data = files[0].data;
-
-	var options = {
-
-		customDirectives: {
-			markdown: function markdown() {
-				return '';
-			}
-		},
-
-		baseDir: '/'
-	};
-
-	console.log(Renderer.render(data, options));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
@@ -1135,6 +1108,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		return str.substring(1, str.length - 1);
 	}
 
+	/**
+	 * Throw a generic error message
+	 */
+
 	function error(message, name) {
 		var err = new Error(message);
 
@@ -1146,16 +1123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function simpleStartsWith(str, search) {
-		var end = search.length;
-		return str.substring(0, end) === search;
-	}
-
-	function isNotStringError(name, value) {
-		error(name + ' is not a string \'' + value + '\'');
-	}
-
-	function isEmptyString(name) {
-		error('Argument ' + name + ' can not be zero-length');
+		return str.substring(0, search.length) === search;
 	}
 
 	function isNotAbsolute(name, path) {
@@ -1179,15 +1147,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function toViewPath(filename, baseDir) {
-		if (typeof filename !== 'string' || !path.isAbsolute(filename) || !path.extname(filename)) {
-			isNotAbsolute('filename', filename);
-		} else if (typeof baseDir !== 'string' || !path.isAbsolute(baseDir) || path.extname(baseDir)) {
+		if (typeof filename !== 'string' || !path.isAbsolute(filename)) {
+			isNotAbsolute('Path', filename);
+		} else if (!path.extname(filename)) {
+			error('Path should have an extension \'' + filename + '\'');
+		} else if (typeof baseDir !== 'string' || !path.isAbsolute(baseDir)) {
 			isNotAbsolute('baseDir', baseDir);
+		} else if (path.extname(baseDir)) {
+			error('baseDir is not a valid directory ' + baseDir);
 		}
 
-		var _path$parse = path.parse(filename),
-		    name = _path$parse.name,
-		    dir = _path$parse.dir;
+		var name = path.basename(filename, path.extname(filename));
+		var dir = path.dirname(filename);
 
 		var index = 0;
 
@@ -1229,11 +1200,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function viewPathToFile(viewPath, baseDir) {
 		if (typeof viewPath !== 'string') {
-			isNotStringError('path', viewPath);
+			error('Path is not a string \'' + viewPath + '\'');
 		} else if (viewPath === '') {
-			error('path can not be zero-length \'' + viewPath + '\'');
-		} else if (typeof baseDir !== 'string' || !path.isAbsolute(baseDir) || path.extname(baseDir)) {
+			error('Path can not be zero-length \'' + viewPath + '\'');
+		} else if (typeof baseDir !== 'string' || !path.isAbsolute(baseDir)) {
 			isNotAbsolute('baseDir', baseDir);
+		} else if (path.extname(baseDir)) {
+			error('baseDir is not a valid directory \'' + baseDir + '\'');
 		}
 
 		viewPath = viewPath.replace(/\.blade$/, '').replace(/([^.])\.([^.])/g, '$1/$2');

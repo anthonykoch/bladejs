@@ -10,7 +10,7 @@ test('resolver.viewPathToFile - throws if either is not a string or baseDir is n
 
 	assert.throws(() =>
 			viewPathToFile('', 'C:/views'),
-			/path can not be zero-length/,
+			/Path can not be zero-length/,
 			'zero-length filename throws error');
 
 	assert.throws(() =>
@@ -39,22 +39,22 @@ test('resolver.viewPathToFile - throws if either is not a string or baseDir is n
 test('resolver.toViewPath - throws if either argument is not a string or absolute', (assert) => {
 	assert.throws(() =>
 			toViewPath('', 'C:/views'),
-			/filename is not an absolute path/,
+			/Path is not an absolute path/,
 			'zero-length filename throws error');
 
 	assert.throws(() =>
 			toViewPath('views/layouts', 'C:/views'),
-			/filename is not an absolute path/,
+			/Path is not an absolute path/,
 			'posix non-absolute filename throws error');
 
 	assert.throws(() =>
 			toViewPath('views\\layouts', 'C:/views'),
-			/filename is not an absolute path/,
+			/Path is not an absolute path/,
 			'windows non-absolute filename throws error');
 
 	assert.throws(() =>
 			toViewPath('C:/views', 'C:/views'),
-			/filename is not an absolute path/,
+			/Path should have an extension/,
 			'filename should be path to file');
 
 	assert.throws(() =>
