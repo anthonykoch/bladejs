@@ -204,6 +204,8 @@ Altogether, blade.min.js comes in at `66.75 KB`.
 
 ### Todo
 
+- Figure out why the minified version is throwing errors.
+
 - Change tests to compare by files.
 
 - Add tests for relative inlcude paths
