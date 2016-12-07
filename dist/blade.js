@@ -733,16 +733,21 @@ return /******/ (function(modules) { // webpackBootstrap
 			var str = match['0'],
 			    index = match.index;
 
+
+			var start = lastIndex - str.length;
+
 			// Some hackery because matching brackets with balance is
 			// a really difficult thing to do.
-
 			if (str[0] === '@' && str[str.length - 1] === '(') {
 				// Since we are matching from the opening bracket position,
 				// we need to do add 1
 				var lastParenIndex = getMatchingParen(lastIndex - 1, this);
 
 				if (lastParenIndex === -1) {
-					this.error('Unclosed directive arguments', { line: this.line });
+					var betwixt = this.source.substring(this.position, start);
+					var line = this.line + count(betwixt, '\n');
+
+					this.error('Unclosed directive arguments', { line: line });
 				}
 
 				lastParenIndex = lastParenIndex + 1;
@@ -751,14 +756,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.position = lastIndex = lastParenIndex;
 			}
 
-			var line = this.line;
+			this.line = this.line + count(str, '\n');
 			this.position = lastIndex === 0 ? this.inputLength : lastIndex;
 
 			return {
 				type: this.getType(str, match),
 				value: str,
-				line: line,
-				start: lastIndex - str.length,
+				line: this.line,
+				start: start,
 				end: lastIndex
 			};
 		},
@@ -767,8 +772,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			if (position < this.inputLength) {
 				var str = this.source.substring(position, this.inputLength);
-				this.line = this.line + count(str, '\n');
 				var end = str.length + position;;
+				this.line = this.line + count(str, '\n');
 				this.position = end;
 
 				return {
@@ -5713,8 +5718,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Marks the file as an extension of another file if the first
-	 * directive is an @extends statement. If found, all top level
-	 * text node and verbatim statements are removed.
+	 * directive is an @extends statement. Trims the first and last
+	 * text node if they are whitespace.
 	 *
 	 * @param  {Object} ast
 	 * @return {Object}
