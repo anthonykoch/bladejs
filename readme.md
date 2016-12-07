@@ -1,7 +1,7 @@
 
 # BladeJS
 
-An implementation of Laravel's templating engine in JavaScript.
+An implementation of Laravel's templating engine in JavaScript. [Try it live here!](http://www.anthonykoch.com/blade/)
 
 Note: This was written purely for fun, and although it seemingly works okay, _please do not actually use it_. There are many good, well tested templating engines already in existence. The below docs are only a reminder for me of how the thing works.
 
